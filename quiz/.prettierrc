@@ -1,0 +1,18 @@
+{
+  "tabWidth": 2,
+  "useTabs": true,
+  "printWidth": 500,
+  "semi": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "parser": "javascript",
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": "src/**/*.js",
+      "options": {
+        "parser": "react"
+      }
+    }
+  ]
+}
