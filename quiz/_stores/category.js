@@ -27,11 +27,14 @@ export const categoryModel = {
 		setQuiz: action((state, quiz) => {
 			state.quiz = quiz;
 		}),
-		createQuiz: thunk(async (actions, selectedCat) => {
+		createQuiz: thunk(async (actions, { category, metadata }) => {
+			const { user } = metadata;
 			const quiz = await quizApi.createQuiz({
-				category: selectedCat.id,
+				category: category.id,
 			});
-			console.log(selectedCat, quiz);
+
+			await firebase.database().ref(`user/${user.uid}/quiz`).set(quiz);
+			console.log(category, quiz, metadata);
 			actions.setQuiz(quiz);
 		}),
 	},

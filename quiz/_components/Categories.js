@@ -12,6 +12,7 @@ export default function Categories(props) {
 	const dbAddCategory = useStoreActions((actions) => actions.categoryModel.category.dbAddCategory);
 	const createQuiz = useStoreActions((actions) => actions.categoryModel.category.createQuiz);
 	const [isLoading, setIsLoading] = useState(true);
+	const { metadata } = useStoreState((state) => state.authModel.user);
 
 	useEffect(() => {
 		const effect = async () => {
@@ -23,7 +24,10 @@ export default function Categories(props) {
 	}, []);
 	console.log(quiz, props);
 
-	const handlePress = (category) => createQuiz(category);
+	const handlePress = (category) => {
+		createQuiz({ category, metadata });
+		props.navigation.navigate('Play');
+	};
 	//  height: Dimensions.get('window').height
 	// contentContainerStyle
 	// contentContainerStyle={tailwind('flex-1')}

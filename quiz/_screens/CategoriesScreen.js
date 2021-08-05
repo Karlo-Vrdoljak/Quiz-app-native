@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 import Categories from '../_components/Categories';
 import Layout from './../_components/Layout';
+import PlayQuizScreen from './PlayQuizScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,7 @@ export default function CategoriesScreen(props) {
 				<View style={{ flex: 1 }}>
 					<Stack.Navigator>
 						<Stack.Screen options={{ headerShown: false, contentStyle: { flex: 1 } }} name="Pick a category" component={Categories} />
-						<Stack.Screen style={{ flex: 1 }} name="Play" component={Layout} />
+						<Stack.Screen style={{ flex: 1 }} name="Play" component={PlayQuizScreen} />
 					</Stack.Navigator>
 				</View>
 			</Layout>
