@@ -7,6 +7,7 @@ const quizApi = new QuizApi();
 export const categoryModel = {
 	category: {
 		categories: [],
+		quiz: null,
 		addCategory: action((state, cat) => {
 			state.categories.push(cat);
 		}),
@@ -18,10 +19,20 @@ export const categoryModel = {
 		}),
 		dbAddCategory: thunk(async (actions, _ = null) => {
 			const { trivia_categories: categories } = await quizApi.fetchCategories();
-			console.log(categories);
 			await firebase.database().ref('category').remove();
 			await firebase.database().ref('category').push(categories);
 			actions.replaceCategory(categories);
+		}),
+
+		setQuiz: action((state, quiz) => {
+			state.quiz = quiz;
+		}),
+		createQuiz: thunk(async (actions, selectedCat) => {
+			const quiz = await quizApi.createQuiz({
+				category: selectedCat.id,
+			});
+			console.log(selectedCat, quiz);
+			actions.setQuiz(quiz);
 		}),
 	},
 };

@@ -48,7 +48,7 @@ export default function Bootstrap() {
 							}}
 						/>
 						<Tab.Screen
-							name="Categories"
+							name="Quiz"
 							component={CategoriesScreen}
 							options={{
 								tabBarIcon: ({ focused, color, size }) => <Ionicons name={focused ? 'md-book' : 'md-book-outline'} size={20} color={getColor('indigo-600')} />,

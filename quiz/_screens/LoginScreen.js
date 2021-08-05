@@ -27,12 +27,10 @@ export default function LoginScreen(props) {
 		try {
 			setIsLoading(true);
 			const user = await firebase.auth().signInWithEmailAndPassword(email?.trim(), password);
-			console.log(user, user.user.toJSON());
 			const snapshot = await firebase
 				.database()
 				.ref('user/' + user.user.uid)
 				.once('value');
-			console.log(snapshot.exists(), snapshot.val());
 			if (snapshot.exists()) {
 				await firebase
 					.database()

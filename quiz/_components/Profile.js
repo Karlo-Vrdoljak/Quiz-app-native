@@ -16,7 +16,6 @@ export default function Profile(props) {
 
 	const { user } = props;
 	const LeftContent = (props) => <Avatar.Icon {...props} icon="account" />;
-	console.log(user);
 	const ContentRow = ({ icon, text }) => (
 		<View style={tailwind('flex flex-row items-center')}>
 			<Avatar.Icon size={18} icon={icon} />
@@ -34,11 +33,11 @@ export default function Profile(props) {
 				<Card.Cover source={{ uri: user.photoURL || Asset.fromModule(require('../assets/profile_bg.jpg')).uri }} />
 				<Card.Title title={user.displayName || user.email} subtitle={user?.createdAt ? `Joined at ${toDate(user.createdAt).toLocaleDateString('hr')}` : ''} />
 				<Card.Content>
-					<Title style={tailwind('px-3')}>
+					<View style={tailwind('px-3')}>
 						<ContentRow icon="email" text={user.email}></ContentRow>
 						<ContentRow icon="account" text={user.displayName}></ContentRow>
 						{/* <ContentRow icon="phone" text={user.phoneNumber}></ContentRow> */}
-					</Title>
+					</View>
 				</Card.Content>
 				<Card.Actions>
 					<View style={tailwind('flex flex-col w-full')}>

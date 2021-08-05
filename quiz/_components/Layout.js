@@ -11,7 +11,7 @@ export default function Layout(props) {
 	const { metadata } = useStoreState((state) => state.authModel.user);
 	const removeUser = useStoreActions((actions) => actions.authModel.user.removeUser);
 	return (
-		<View style={tailwind('flex w-full h-full')}>
+		<View style={tailwind('flex-1 w-full h-full')}>
 			<Appbar.Header>
 				{navigation.canGoBack() && <Appbar.BackAction onPress={() => navigation.goBack()} />}
 				<Appbar.Content title={title} subtitle={subtitle} />

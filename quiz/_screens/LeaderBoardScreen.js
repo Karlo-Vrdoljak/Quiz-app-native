@@ -6,6 +6,5 @@ import { useStore } from 'easy-peasy';
 
 export default function CategoriesScreen({ children }) {
 	const store = useStore();
-	console.log(store.getState());
 	return <Text style={tailwind('text-xl text-gray-600')}>leaderboard</Text>;
 }
