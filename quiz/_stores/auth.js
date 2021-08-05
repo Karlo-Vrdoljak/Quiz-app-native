@@ -8,12 +8,8 @@ export const authModel = persist(
 			storeUser: action((state, data) => {
 				state.metadata = data;
 			}),
-			removeUser: action((state, _) => {
+			removeUser: action((state, _ = null) => {
 				state.metadata = null;
-			}),
-			signInWithEmailAndPassword: thunk(async (actions, payload) => {
-				const creds = await firebase.auth().signInWithEmailAndPassword('1karlo.vrdoljak@gmail.com', 'asdfasdf');
-				actions.storeUser(creds);
 			}),
 		},
 	},

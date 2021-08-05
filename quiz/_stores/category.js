@@ -16,12 +16,11 @@ export const categoryModel = {
 		removeCategory: action((state, cat) => {
 			state.categories = state.categories.filter((c) => c != cat);
 		}),
-		dbAddCategory: thunk(async (actions, payload) => {
+		dbAddCategory: thunk(async (actions, _ = null) => {
 			const { trivia_categories: categories } = await quizApi.fetchCategories();
 			console.log(categories);
-			const testRef = firebase.database().ref('test');
-			const tests = await testRef.get({});
-			console.log(tests);
+			await firebase.database().ref('category').remove();
+			await firebase.database().ref('category').push(categories);
 			actions.replaceCategory(categories);
 		}),
 	},
