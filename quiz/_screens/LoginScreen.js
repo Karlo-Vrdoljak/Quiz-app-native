@@ -8,6 +8,7 @@ import Layout from '../_components/Layout';
 import { tailwind } from '../_lib/tailwind';
 import firebase, { toDate } from '../_services/firebase';
 import Loader from './../_components/Loader';
+import fb from 'firebase';
 
 export default function LoginScreen(props) {
 	const [visible, setVisible] = React.useState(false);
@@ -26,6 +27,7 @@ export default function LoginScreen(props) {
 	const trySignIn = async ({ email, password }) => {
 		try {
 			setIsLoading(true);
+			await firebase.auth().setPersistence(fb.auth.Auth.Persistence.LOCAL);
 			const user = await firebase.auth().signInWithEmailAndPassword(email?.trim(), password);
 			const snapshot = await firebase
 				.database()
@@ -43,7 +45,7 @@ export default function LoginScreen(props) {
 					.push(user.user.toJSON());
 			}
 			setIsLoading(false);
-			storeUser(user);
+			storeUser({ user: user.user });
 		} catch (error) {
 			console.error(error);
 			const errorMessage = error.message;
@@ -59,9 +61,9 @@ export default function LoginScreen(props) {
 			await firebase
 				.database()
 				.ref('user/' + user.user.uid)
-				.push(user.user.toJSON());
+				.set(user.user.toJSON());
 			setIsLoading(false);
-			storeUser(user);
+			storeUser({ user: user.user });
 		} catch (error) {
 			const errorMessage = error.message;
 			setError(errorMessage);

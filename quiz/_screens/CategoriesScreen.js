@@ -8,13 +8,19 @@ import PlayQuizScreen from './PlayQuizScreen';
 const Stack = createNativeStackNavigator();
 
 export default function CategoriesScreen(props) {
+	// const { metadata } = useStoreState((state) => state.authModel.user);
+	// const removeActiveQuiz = useStoreActions((actions) => actions.categoryModel.category.removeActiveQuiz);
+	// const { quiz } = useStoreState((state) => state.categoryModel.category);
+	// if (quiz) {
+	// 	removeActiveQuiz({ metadata });
+	// }
 	return (
 		<>
 			<Layout title={props.route.name} subtitle={`Pick a category and play! 🎮`}>
 				<View style={{ flex: 1 }}>
 					<Stack.Navigator>
 						<Stack.Screen options={{ headerShown: false, contentStyle: { flex: 1 } }} name="Pick a category" component={Categories} />
-						<Stack.Screen style={{ flex: 1 }} name="Play" component={PlayQuizScreen} />
+						<Stack.Screen options={{ headerShown: false, contentStyle: { flex: 1 } }} name="Play" component={PlayQuizScreen} />
 					</Stack.Navigator>
 				</View>
 			</Layout>

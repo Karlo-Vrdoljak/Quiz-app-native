@@ -9,7 +9,7 @@ import firebase from './../_services/firebase';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 
 export default function UpdateAccountInfo(props) {
-	const { user, hideModal } = props;
+	const { hideModal } = props;
 	const [error, setError] = useState(null);
 	const storeUser = useStoreActions((actions) => actions.authModel.user.storeUser);
 	const { metadata: userStoreData } = useStoreState((state) => state.authModel.user);
@@ -18,7 +18,6 @@ export default function UpdateAccountInfo(props) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [visible, setVisible] = useState(false);
 
-	// console.log();
 	const Schema = Yup.object().shape({
 		displayName: Yup.string().required('Required'),
 	});
@@ -26,6 +25,7 @@ export default function UpdateAccountInfo(props) {
 		try {
 			setIsLoading(true);
 			await firebase.auth().currentUser.updateProfile({ displayName, photoURL: null });
+			await firebase.database().ref(`user/${userStoreData.user.uid}`).child('displayName').set(displayName);
 			setIsLoading(false);
 			storeUser({ ...userStoreData, displayName });
 			hideModal();

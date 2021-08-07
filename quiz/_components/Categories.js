@@ -10,6 +10,7 @@ import Layout from './../_components/Layout';
 export default function Categories(props) {
 	const { categories, quiz } = useStoreState((state) => state.categoryModel.category);
 	const dbAddCategory = useStoreActions((actions) => actions.categoryModel.category.dbAddCategory);
+	const findActiveQuiz = useStoreActions((actions) => actions.categoryModel.category.findActiveQuiz);
 	const createQuiz = useStoreActions((actions) => actions.categoryModel.category.createQuiz);
 	const [isLoading, setIsLoading] = useState(true);
 	const { metadata } = useStoreState((state) => state.authModel.user);
@@ -17,12 +18,12 @@ export default function Categories(props) {
 	useEffect(() => {
 		const effect = async () => {
 			await dbAddCategory();
+			await findActiveQuiz({ metadata, navigation: props.navigation });
 			setIsLoading(false);
 		};
 		effect();
 		return () => {};
 	}, []);
-	console.log(quiz, props);
 
 	const handlePress = (category) => {
 		createQuiz({ category, metadata });

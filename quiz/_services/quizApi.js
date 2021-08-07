@@ -17,9 +17,8 @@ export default class QuizApi {
 	fetchCategories() {
 		return fetcher(this.CATEGORY_LIST);
 	}
-	async createQuiz({ type = 'boolean', encode = 'base64', amount = '10', category, difficulty = 'easy' }) {
-		const params = { type, encode, amount, category, difficulty };
-		console.log(params, this.qs(params));
+	async createQuiz({ type = 'boolean', encode = 'base64', amount = '10', category }) {
+		const params = { type, encode, amount, category };
 		const result = await fetcher(this.QUIZ_URL + this.qs(params));
 		const { results } = result;
 		return results.map((r) => {

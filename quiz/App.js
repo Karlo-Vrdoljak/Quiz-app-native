@@ -1,13 +1,15 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { StoreProvider } from 'easy-peasy';
 import React from 'react';
+// import { LogBox } from 'react-native';
 import 'react-native-gesture-handler';
 import { Provider as PaperProvider } from 'react-native-paper';
 import Bootstrap from './Bootstrap';
 import store from './_stores/store';
-import Layout from './_components/Layout';
+
 
 export default function App() {
+	// LogBox.ignoreLogs(['Setting a timer']);
 	return (
 		<NavigationContainer>
 			<StoreProvider store={store}>

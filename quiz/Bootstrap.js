@@ -15,21 +15,18 @@ const Tab = createBottomTabNavigator();
 
 export default function Bootstrap() {
 	const isRehydrated = useStoreRehydrated();
-	const user = useStoreState((state) => state.authModel.user);
+	const { metadata } = useStoreState((state) => state.authModel.user);
 	const { isLoading } = useStoreState((state) => state.globalModel.spinner);
 	const stopLoader = useStoreActions((action) => action.globalModel.spinner.stop);
+	const storeUser = useStoreActions((action) => action.authModel.user.storeUser);
+	const { quiz } = useStoreState((state) => state.categoryModel.category);
 
 	// stopLoader();
 	useEffect(() => {
-		const autoSignIn = async (user) => {
-			try {
-				await firebase.auth().signInWithCustomToken(user.stsTokenManager.accessToken);
-				stopLoader();
-			} catch (error) {
-				stopLoader();
-			}
-		};
-		isRehydrated && autoSignIn(user?.metadata?.user);
+		firebase.auth().onAuthStateChanged((auth) => {
+			storeUser({ user: auth });
+			stopLoader();
+		});
 	}, [isRehydrated]);
 
 	if (!isRehydrated) {
@@ -38,7 +35,7 @@ export default function Bootstrap() {
 	return (
 		<>
 			<Tab.Navigator>
-				{user.metadata && firebase.auth().currentUser ? (
+				{metadata && firebase.auth().currentUser ? (
 					<>
 						<Tab.Screen
 							name="Home"
@@ -51,6 +48,7 @@ export default function Bootstrap() {
 							name="Quiz"
 							component={CategoriesScreen}
 							options={{
+								tabBarVisible: false,
 								tabBarIcon: ({ focused, color, size }) => <Ionicons name={focused ? 'md-book' : 'md-book-outline'} size={20} color={getColor('indigo-600')} />,
 							}}
 						/>
