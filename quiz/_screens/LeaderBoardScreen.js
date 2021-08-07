@@ -31,7 +31,7 @@ export default function CategoriesScreen(props) {
 						userQuizes,
 					});
 				});
-				const leaderboard = board.map((b) => ({ user: b.user, totalPlayed: b.userQuizes.length, totalScore: b.userQuizes?.length ? b.userQuizes.map((uq) => uq.totalScore).reduce((c, n) => c + n, 0) : 0 })); //.filter((b) => b.totalScore > 0);
+				const leaderboard = board.map((b) => ({ user: b.user, totalPlayed: b.userQuizes.length, totalScore: b.userQuizes?.length ? b.userQuizes.map((uq) => uq.totalScore).reduce((c, n) => c + n, 0) : 0 })).filter((b) => b.totalScore > 0);
 				leaderboard.sort((a, b) => {
 					if (a.totalScore === b.totalScore) {
 						return a.totalPlayed < b.totalPlayed ? 1 : -1;
