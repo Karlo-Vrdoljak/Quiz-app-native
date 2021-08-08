@@ -62,7 +62,7 @@ export default function CategoriesScreen(props) {
 											)}
 											key={i}
 											desc={`Scored ${c.totalScore}`}
-											title={`${c.user.name}  ${c.user.email}`}
+											title={`${c.user?.name + ' ' || ''}${c.user.email}`}
 											icon="crown"
 										></QuizResultQuestion>
 									))}
